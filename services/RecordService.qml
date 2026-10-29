@@ -24,7 +24,10 @@ QtObject {
   function run(cmd) { Quickshell.execDetached(["bash", "-c", cmd]) }
 
   function start() {
-    const audioFlag = withAudio ? " --with-microphone-audio" : ""
+    // Caelestia's "with sound" is the system audio -- its CLI passes
+    // `-a default_output`, which Omarchy spells --with-desktop-audio. Asking
+    // only for --with-microphone-audio recorded the mic and no game/stream audio.
+    const audioFlag = withAudio ? " --with-desktop-audio" : ""
     const modeFlag = mode === "fullscreen" ? " --fullscreen" : ""
     run("omarchy capture screenrecording" + modeFlag + audioFlag)
     running = true
